@@ -3,10 +3,9 @@ import Link from 'next/link';
 import paths from '@/paths';
 
 interface PostListProps {
-    fecthData: () => Promise<PostWithData[]>;
+  fetchData: () => Promise<PostWithData[]>;
 }
 
-//TODO: Get list of posts into this component somehow
 export default async function PostList({ fetchData }: PostListProps) {
   const posts = await fetchData();
 
@@ -14,11 +13,11 @@ export default async function PostList({ fetchData }: PostListProps) {
     const topicSlug = post.topic.slug;
 
     if (!topicSlug) {
-        throw new Error('Post is missing a topic slug');
+      throw new Error('Need a slug to link to a post');
     }
 
     return (
-      <div key={post.id} className="border rounder p-2">
+        <div key={post.id} className="border rounder p-2">
         <Link href={paths.postShow(topicSlug, post.id)}>
           <h3 className="text-lg font-bold">{post.title}</h3>
           <div className="flex flex-row gap-8">
